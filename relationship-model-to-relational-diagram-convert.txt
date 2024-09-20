@@ -1,0 +1,102 @@
+ENTITIES AND ATTRIBUTES
+1. Hotel
+Hotel_id (PK)
+Hotel_name
+
+2. Type
+Type_id (PK)
+Type_name
+
+3. Room
+Room_id (PK)
+Floor
+Hotel_id (FK) references Hotel
+
+4. Category
+Category_id (PK)
+Category_name
+Price
+Beds_numbers
+
+
+5. Employee
+Employee_id (PK)
+Employee_name
+Employee_special
+Hotel_id (FK) references Hotel
+Leader_id (FK) references Employee (for hierarchical relationships)
+
+
+RELATIONSHIPS
+
+1. Hotel to Type:
+.Each Hotel has exactly one Type.
+.This can be represented as a foreign key in the Hotel table.
+
+2. Hotel to Room:
+.A Hotel can have many Rooms, but each Room belongs to one Hotel.
+.The Room table contains a foreign key referencing Hotel.
+
+3. Hotel to Employee:
+.A Hotel can employ many Employees, each Employee works for one Hotel.
+.The Employee table includes a foreign key referencing Hotel.
+
+
+4.Employee to Employee (Leader relationship):
+.An Employee can lead many Employees, and each Employee has one leader.
+.This can be represented by a foreign key in the Employee table referencing itself.
+
+
+
+
+RELATIONAL DIAGRAM REPRESENTATION
+
++-----------------+       1..1        +------------------+
+|      Hotel      |-------------------|      Type        |
++-----------------+                   +------------------+
+| **Hotel_id**    | PK                
+| Hotel_name      |                
+| **Type_id**     | FK                
++-----------------+                  
+
+       1..N
++-------------------+
+|       Room        |
++-------------------+
+| **Room_id**       | PK
+| Floor             |
+| **Hotel_id**      | FK references Hotel
++-------------------+
+
+       1..N
++---------------------+
+|      Category       |
++---------------------+
+| **Category_id**     | PK
+| Category_name       |
+| Price               |
+| Beds_numbers        |
++---------------------+
+
+       1..N            1..1
++-----------------------+
+|       Employee        |
++-----------------------+
+| **Employee_id**       | PK
+| Employee_name         |
+| Employee_special      |
+| **Hotel_id**          | FK references Hotel
+| **Leader_id**         | FK references Employee
++-----------------------+
+
+
+Cardinality Notation:
+.1..1 indicates a one-to-one relationship. For example, each Hotel has exactly one Type.
+.1..N indicates a one-to-many relationship. For instance, one Hotel can have many Rooms or Employees.
+
+
+Summary of Relationships:
+1. Hotel to Type: 1..1 (one Hotel is of one Type)
+2. Hotel to Room: 1..N (one Hotel can have many Rooms)
+3. Hotel to Employee: 1..N (one Hotel can employ many Employees)
+4. Employee to Employee (Leadership): 1..N (one Employee can lead many Employees, but each Employee has one leader)
